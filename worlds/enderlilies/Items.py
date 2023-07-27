@@ -60,8 +60,23 @@ for i, (name, id) in enumerate(abilities_table.items()):
 
 # Handle the relics
 for i, (name, id) in enumerate(relics_table.items()):
+
+    progression_type: IC
+
+    match (name):
+        case "mask":
+            progression_type = IC.progression
+        case "heal1":
+            progression_type = IC.progression
+        case "heal2":
+            progression_type = IC.progression
+        case "heal3":
+            progression_type = IC.progression
+        case _:
+            progression_type = IC.filler
+
     item_table.update(
-        {name: ItemData(IC.filler, id, i)}
+        {name: ItemData(progression_type, id, i)}
     )
 
 
