@@ -5,6 +5,7 @@ class ELRegionData(NamedTuple):
     connecting_regions: List[str] = []
 
 region_data_table = {
+    "Menu": ELRegionData(),
     region.ABYSS: ELRegionData(),
     region.CASTLE: ELRegionData(),
     region.CAVE: ELRegionData(),
