@@ -2,6 +2,9 @@ from typing import Callable, Dict, NamedTuple, Optional
 
 from BaseClasses import Location, MultiWorld
 from .Consts import Regions as region
+from .data.DataExtractor import nodes_table
+
+
 
 
 locations = {
@@ -426,7 +429,7 @@ locations = {
     "Village14Bottom": "Map.map_village_14.7",
     "Village15Left": "Map.map_village_15.0",
     "Village15Right": "Map.map_village_15.F1",
-    "Village16Right": "Map.map_village_16.12"
+    "Village16Right": "Map.map_village_16.12",
 }
 
 class ELLocation(Location):
@@ -435,43 +438,85 @@ class ELLocation(Location):
 class ELLocationData(NamedTuple):
     region: str
     address: Optional[int] = None
-    can_create: Callable[[MultiWorld, int], bool] = lambda multiworld, player: True
+    rules: str = None
+    content: str = None
+    # can_create: Callable[[MultiWorld, int], bool] = lambda multiworld, player: True
     locked_item: Optional[str] = None
 
 location_data_table: Dict[str, ELLocationData] = {}
 
-for i, (key, value) in enumerate(locations.items()):
+for i, (name, info) in enumerate(nodes_table.items()):
+    # print(info)
 
     current_region = ""
+    address = i
+    rules = info["rules"] if info.get("rules") else None
+    content = info["content"] if info.get("content") else None
 
-    # Figure out the location based on the key
-    if region.VILLAGE in key:
+    # Remove Travel Volumes and extra content
+    if "WorldTravel" in name or name == "CathedralCloister" or name == "MourningHall":
+        continue
+
+    # Figure out the location based on the name
+    if region.VILLAGE in name:
         current_region = region.VILLAGE
-    elif region.CASTLE in key:
+    elif region.CASTLE in name:
         current_region = region.CASTLE
-    elif region.CAVE in key:
+    elif region.CAVE in name:
         current_region = region.CAVE
-    elif region.CHURCH in key:
+    elif region.CHURCH in name:
         current_region = region.CHURCH
-    elif region.FORT in key:
+    elif region.FORT in name:
         current_region = region.FORT
-    elif region.SWAMP in key:
+    elif region.SWAMP in name:
         current_region = region.SWAMP
-    elif region.FOREST in key:
+    elif region.FOREST in name:
         current_region = region.FOREST
-    elif region.OUBLIETTE in key:
+    elif region.OUBLIETTE in name:
         current_region = region.OUBLIETTE
-    elif region.ABYSS in key:
+    elif region.ABYSS in name:
         current_region = region.ABYSS
 
-    location_data_table.update({
-        key: ELLocationData(
-            region=current_region
-        )
-    })
+    location_data_table.update({name: ELLocationData(region=current_region, address=i, rules=rules, content=content)})
+
+#
+# for i, (key, value) in enumerate(locations.items()):
+#
+#     current_region = ""
+#     address = i
+#
+#     # Figure out the location based on the key
+#     if region.VILLAGE in key:
+#         current_region = region.VILLAGE
+#     elif region.CASTLE in key:
+#         current_region = region.CASTLE
+#     elif region.CAVE in key:
+#         current_region = region.CAVE
+#     elif region.CHURCH in key:
+#         current_region = region.CHURCH
+#     elif region.FORT in key:
+#         current_region = region.FORT
+#     elif region.SWAMP in key:
+#         current_region = region.SWAMP
+#     elif region.FOREST in key:
+#         current_region = region.FOREST
+#     elif region.OUBLIETTE in key:
+#         current_region = region.OUBLIETTE
+#     elif region.ABYSS in key:
+#         current_region = region.ABYSS
+#
+#     # Example: { Village16Right: Village}
+#     location_data_table.update({
+#         key: ELLocationData(
+#             region=current_region,
+#             address=address
+#         )
+#     })
 
 location_table: Dict[str, int] = {
     name: data.address for name, data in location_data_table.items() if data.address is not None
 }
 
-
+print("Length of the location data table: ", len(location_data_table))
+for k, v in location_table.items():
+    print(k, v)
