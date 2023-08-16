@@ -271,6 +271,10 @@ def main(args, seed=None, baked_server_options: Optional[Dict[str, object]] = No
 
     logger.info(f'Filling the world with {len(world.itempool)} items.')
 
+    # Custom logging info
+    logger.info(f"Items in itempool {world.itempool}")
+
+
     if world.algorithm == 'flood':
         flood_items(world)  # different algo, biased towards early game progress items
     elif world.algorithm == 'balanced':

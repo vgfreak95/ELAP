@@ -14,6 +14,7 @@ from .Options import el_options
 from .Items import ELItem, item_data_table, id_to_item_table, is_progression
 from .Locations import location_table, location_data_table, ELLocation
 from .Regions import region_data_table
+from.data.DataExtractor import region_rooms
 
 import logging
 from typing import List
@@ -27,8 +28,6 @@ class ELWorld(World):
     game = "EnderLilies"
     options_definitions = el_options
     topology_present = True
-
-    # item_name_to_id = {item_name: data.code for item_name, data, in item_data_table.items() if data.code}
     item_name_to_id = {item_name: data.code for item_name, data in item_data_table.items() if data.code is not None}
     location_name_to_id = location_table
 
@@ -57,8 +56,6 @@ class ELWorld(World):
 
         # Create items for the item pool, eventually might need more logic here
         for name, item in item_data_table.items():
-            # logging.info(f"Creating item: {name}")
-            # fill progression items first
             item_pool.append(self.create_item(name))
 
         self.multiworld.itempool += item_pool
@@ -94,13 +91,14 @@ class ELWorld(World):
             if len(locations) != 0:
                 region.add_locations(locations, ELLocation)
 
-            # Currently haven't added the exits to the regions
-            # region.add_exits(region_data_table[region_name].connecting_regions)
+        # Add exits for the region room
+        for room_name in region_rooms:
+            region: Region = self.multiworld.get_region(room_name, self.player)
+            region.add_exits(region_data_table[room_name].connecting_regions)
 
-        print(f"Locations: {self.multiworld.get_locations(1)}")
 
+    # TODO Still learning how rules work
     def set_rules(self) -> None:
-
         print("Setting a rule")
         set_rule(self.multiworld.get_location("Abyss_01_GAMEPLAY.BP_Interactable_Item_Tip3", 1), lambda state: state.has("SomeItem", 1))
         print(self.multiworld.get_location("Abyss_01_GAMEPLAY.BP_Interactable_Item_Tip3", 1))
