@@ -26,7 +26,7 @@ class ShuffleUpgrades(Toggle):
 el_options: Dict[str, type(Option)] = {
     "shuffle_slots": ShuffleSlots,
     "shuffle_bgm": ShuffleBGM,
-    "shuffle_enemeies": ShuffleEnemies,
+    "shuffle_enemies": ShuffleEnemies,
     "new_game_plus": NewGamePlus,
     "force_ancient_souls": ForceAncientSouls,
     "mini_boss_incrememnts_chapter": MiniBossIncrementsChapter,

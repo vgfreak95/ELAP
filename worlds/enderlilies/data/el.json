@@ -184,6 +184,7 @@
     "Castle15Bottom": "Map.map_castle_15.14",
     "Castle15Left": "Map.map_castle_15.16",
     "Castle16Right": "Map.map_castle_16.15",
+    "Castle16Bottom": "Map.map_castle_16.18",
     "Castle17Right": "Map.map_castle_17.13",
     "Castle17Top": "Map.map_castle_17.18",
     "Castle18Bottom": "Map.map_castle_18.16",
@@ -242,6 +243,7 @@
     "Cave16Right": "Map.map_cave_16.15",
     "Cave17Top": "Map.map_cave_17.8",
     "Cave18Left1": "Map.map_cave_18.11",
+    "Cave18Left2": "Map.map_cave_18.11",
     "Cave19Left": "Map.map_cave_19.21",
     "Cave19Top": "Map.map_cave_19.20",
     "Cave20Bottom": "Map.map_cave_20.19",
@@ -954,7 +956,7 @@
     },
     "Castle_12_GAMEPLAY.BP_Interactable_Item_PassiveSlot_2": {
       "content": "Generic.i_PassiveSlot_Up",
-      "rules": "Castle12Bottom+ hook"
+      "rules": "Castle12Bottom + hook"
     },
     "Castle_12_GAMEPLAY.BP_Interactable_Item_Tip3": {
       "content": "Tip.tip_042",
@@ -1363,7 +1365,7 @@
     },
     "Cave_11_GAMEPLAY.BP_WorldTravelVolume3": {
       "content": "Map.map_cave_13.11",
-      "rules": "Cave11Tip  + claw"
+      "rules": "Cave11Tip + claw"
     },
     "Cave_11_GAMEPLAY.BP_WorldTravelVolume5": {
       "content": "Map.map_cave_18.11",

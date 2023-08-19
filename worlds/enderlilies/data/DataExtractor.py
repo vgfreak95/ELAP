@@ -13,11 +13,16 @@ ds_data = json.loads(json_data)
 
 alias = ds_data["items_alias"]
 
+
 spirits_table = alias["spirits"]
 abilities_table = alias["abilities"]
 relics_table = alias["relics"]
-
 macros_table = ds_data["macros"]
+
+
+
+
+
 
 extra_items_list = ds_data["extra_items"]
 
@@ -79,6 +84,7 @@ region_connectors_lookup = {
     'Castle15Bottom': 'Castle14',
     'Castle15Left': 'Castle16',
     'Castle16Right': 'Castle15',
+    'Castle16Bottom': 'Castle18',
     'Castle17Right': 'Castle13',
     'Castle17Top': 'Castle18',
     'Castle18Bottom': 'Castle17',
@@ -138,6 +144,7 @@ region_connectors_lookup = {
     'Cave16Right': 'Cave15',
     'Cave17Top': 'Cave08',
     'Cave18Left1': 'Cave11',
+    'Cave18Left2': 'Cave11',
     'Cave19Left': 'Cave21',
     'Cave19Top': 'Cave20',
     'Cave20Bottom': 'Cave19',
@@ -159,7 +166,7 @@ region_connectors_lookup = {
     'Church03Left': 'Church05',
     'Church03Right': 'Church04',
     'Church04Left': 'Church03',
-    'Church04Right': 'Church05',
+    'Church04Right': 'Church06',
     'Church05Bottom': 'Church11',
     'Church05Right': 'Church03',
     'Church05Top': 'Church09',

@@ -10,19 +10,29 @@ At least 1 Region object
 
 from worlds.AutoWorld import World
 from BaseClasses import Region, ItemClassification as IC
+from worlds.ladx.LADXR.logic import location
 from .Options import el_options
 from .Items import ELItem, item_data_table, id_to_item_table, is_progression
 from .Locations import location_table, location_data_table, ELLocation
 from .Regions import region_data_table
-from.data.DataExtractor import region_rooms
+from.data.DataExtractor import (
+    region_rooms, spirits_table, abilities_table, macros_table, relics_table 
+)
+
+
+from .Rules import (
+    relic_rule, aptitude_rule, spirit_rule, set_location_rule_from_template, set_rules
+)
 
 import logging
 from typing import List
-from worlds.generic.Rules import add_rule, set_rule, forbid_item
+from worlds.generic.Rules import (
+    CollectionRule, add_rule, set_rule, forbid_item, 
+)
 
 class ELWorld(World):
     """
-    Ender Lilies: QUEITES OF THE KNIGHTS: put summary here...?
+    Ender Lilies: QUIETUS OF THE KNIGHTS: put summary here...?
 
     """
     game = "EnderLilies"
@@ -47,6 +57,18 @@ class ELWorld(World):
             player=self.player
         )
 
+    def create_event(self, name:str) -> ELItem:
+        """
+        Creates an event item that isn't used in the game but only used in the logic
+        """
+
+        return ELItem(
+            name=name,
+            classification=IC.filler,
+            code=None,
+            player=self.player
+        )
+
     def create_items(self) -> None:
         """
         Create the items for the AP World and add them to the item pool
@@ -60,7 +82,7 @@ class ELWorld(World):
 
         self.multiworld.itempool += item_pool
         logging.info("All items should be created")
-        print(f"Item Pool items: {self.multiworld.itempool}")
+        # print(f"Item Pool items: {self.multiworld.itempool}")
 
     def create_regions(self) -> None:
         """
@@ -96,12 +118,8 @@ class ELWorld(World):
             region: Region = self.multiworld.get_region(room_name, self.player)
             region.add_exits(region_data_table[room_name].connecting_regions)
 
-
-    # TODO Still learning how rules work
     def set_rules(self) -> None:
-        print("Setting a rule")
-        set_rule(self.multiworld.get_location("Abyss_01_GAMEPLAY.BP_Interactable_Item_Tip3", 1), lambda state: state.has("SomeItem", 1))
-        print(self.multiworld.get_location("Abyss_01_GAMEPLAY.BP_Interactable_Item_Tip3", 1))
+        set_rules(self)
 
     def get_filler_item_name(self) -> str:
         return "Some filler item (Better luck next time)"

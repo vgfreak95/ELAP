@@ -108,7 +108,7 @@ progressive_spirits = ["Spirit.s2172", "Spirit.s2052", "Spirit.s5020"]
 for i, (node_name, node_data) in enumerate(nodes_table.items()):
 
     # Remove Travel Volumes and extra content
-    if "WorldTravel" in node_name or node_name == "CathedralCloister" or node_name == "MourningHall" or node_name == "starting_spirit":
+    if "WorldTravel" in node_name or node_name == "CathedralCloister" or node_name == "MourningHall" or node_name == "starting_weapon":
         continue
 
     # if node_name["content"] in progressive_spirits or node_name["content"]:
