@@ -12,20 +12,11 @@ with open(json_path, "r") as json_file:
 ds_data = json.loads(json_data)
 
 alias = ds_data["items_alias"]
-
-
 spirits_table = alias["spirits"]
 abilities_table = alias["abilities"]
 relics_table = alias["relics"]
 macros_table = ds_data["macros"]
-
-
-
-
-
-
 extra_items_list = ds_data["extra_items"]
-
 map_alias_to_location = ds_data["locations"]
 
 # Leaving line breaks because easier vim navigation
@@ -469,9 +460,12 @@ region_connectors_lookup = {
 map_location_to_alias = {}
 
 # We need this since generated content should be hashable both ways
-for key, value in map_location_to_alias.items():
+for key, value in map_alias_to_location.items():
     map_location_to_alias.update({value: key})
 
+# print(map_location_to_alias)
+
+# print(map_location_to_alias)
 # Region = Room and need a list of rooms
 region_rooms = []
 

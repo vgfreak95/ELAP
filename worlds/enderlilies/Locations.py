@@ -3,7 +3,7 @@ import re
 
 from BaseClasses import Location, MultiWorld
 from .Consts import Regions as region
-from .data.DataExtractor import nodes_table, map_alias_to_location
+from .data.DataExtractor import nodes_table, map_location_to_alias
 
 
 
@@ -32,10 +32,17 @@ for i, (name, info) in enumerate(nodes_table.items()):
     content = info["content"] if info.get("content") else None
 
     # Remove Travel Volumes and extra content
-    if "WorldTravel" in name or name == "CathedralCloister" or name == "MourningHall":
-        continue
 
     current_region = str.join("", node_pattern.search(name).group().split("_"))
+
+    if "WorldTravel" in name:
+        location_data = ELLocationData(region=current_region, address=None, rules=rules, content=content)
+        map_code = map_location_to_alias[info.get('content')]
+        location_data_table.update({map_code: location_data})
+        continue
+    # if "WorldTravel" in name or name == "CathedralCloister" or name == "MourningHall":
+    #     continue
+
 
     location_data_table.update({name: ELLocationData(region=current_region, address=i, rules=rules, content=content)})
 

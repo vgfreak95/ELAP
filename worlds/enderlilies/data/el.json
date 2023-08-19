@@ -2034,7 +2034,7 @@
     },
     "Forest_15_GAMEPLAY.BP_e5040_Witch": {
       "content": "Spirit.s5040",
-      "rules": "Forest_15_GAMEPLAY.BP_WorldTravelVolume_2"
+      "rules": "Forest15Top"
     },
     "Forest_15_GAMEPLAY.BP_WorldTravelVolume_2": {
       "content": "Map.map_forest_14.15",

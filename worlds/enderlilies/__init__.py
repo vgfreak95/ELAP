@@ -16,7 +16,7 @@ from .Items import ELItem, item_data_table, id_to_item_table, is_progression
 from .Locations import location_table, location_data_table, ELLocation
 from .Regions import region_data_table
 from.data.DataExtractor import (
-    region_rooms, spirits_table, abilities_table, macros_table, relics_table 
+    region_rooms, map_location_to_alias, nodes_table
 )
 
 
@@ -74,13 +74,33 @@ class ELWorld(World):
         Create the items for the AP World and add them to the item pool
         """
         item_pool: List[ELItem] = []
+        event_pool: List[ELItem] = []
         logging.info("Creating the items...")
 
         # Create items for the item pool, eventually might need more logic here
         for name, item in item_data_table.items():
+
+            # Create event items for logic
+            if name in map_location_to_alias.values():
+                # print("Something")
+                # print(f"Location Name: {name}")
+            # if "WorldTravel" in name:
+                # map_code = nodes_table[name].get('content')
+                # print(f"Map location to alias: {map_location_to_alias}")
+                # aliased_volume = map_location_to_alias[map_code]
+                map_event = self.create_event(name)
+                event_pool.append(map_event)
+                # print(item_pool[len(item_pool)-1].location)
+                continue
+
+            # print(f"Location Name: {name}")
             item_pool.append(self.create_item(name))
 
+        # for event in event_pool:
+        #     print(event.location)
+
         self.multiworld.itempool += item_pool
+        # self.multiworld.itempool += event_pool
         logging.info("All items should be created")
         # print(f"Item Pool items: {self.multiworld.itempool}")
 
@@ -92,7 +112,7 @@ class ELWorld(World):
         logging.info("Creating the regions...")
 
         # Add the menu region
-        menu_region = Region("Menu", self.player, self.multiworld) 
+        menu_region = Region("Menu", self.player, self.multiworld)
         self.multiworld.regions.append(menu_region)
 
         # Create the regions and add them to the multiworld
@@ -118,8 +138,14 @@ class ELWorld(World):
             region: Region = self.multiworld.get_region(room_name, self.player)
             region.add_exits(region_data_table[room_name].connecting_regions)
 
+        starting_area = self.multiworld.get_region("Church12", self.player)
+        menu_region.connect(starting_area)
+        # print(self.item_pool[len(self.item_pool)-1])
+        # self.multiworld.get_location("Abyss_01_GAMEPLAY.BP_SCR_LV2M_2171_2", self.player)
+
     def set_rules(self) -> None:
-        set_rules(self)
+        # set_rules(self)
+        pass
 
     def get_filler_item_name(self) -> str:
         return "Some filler item (Better luck next time)"
