@@ -169,7 +169,7 @@ def set_generated_rules(el_world, el_set_rule):
     fn("Church11Left", lambda state: state.has('Church10Right', player) or state.has('Church_10_GAMEPLAY.BP_Interactable_Item_Tip_2', player))
     fn("Church05Bottom", lambda state: state.has('Church11Top', player) or state.has('Church11Left', player))
     fn("Church10Right", lambda state: state.has('Church11Left', player))
-    fn("Church01Left", lambda state: state.has('Church12Right', player) or state.has('Church_12_GAMEPLAY.BP_Interactable_Item_Tip1', player))
+    fn("Church01Left", lambda state: state.has('Church12Right', player) or state.has('Church_12_GAMEPLAY.BP_Interactable_Item_Tip1', player) and state.has('Menu'))
     fn("Church13Top", lambda state: state.has('Church12Bottom', player) or state.has('Church_12_GAMEPLAY.BP_Interactable_Item_Tip1', player) and (state.has('Aptitude.door_unlock', player) and (state.has('Aptitude.double_jump', player) or state.has('champion', player) or state.has('silva', player) and state.has('Aptitude.Dodge', player) or state.has('Aptitude.wallgrab', player))))
     fn("Church12Bottom", lambda state: state.has('Church13Top', player))
     fn("Church09Top", lambda state: state.has('Church14Bottom', player))

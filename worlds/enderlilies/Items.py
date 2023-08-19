@@ -76,8 +76,15 @@ for i, (node_name, node_data) in enumerate(nodes_table.items()):
 # Section to add additional items not in nodes
 items_to_add = {} # alias, item_name
 items_to_add.update(abilities_table)
+items_to_add.update({
+    "silva": "Spirit.s5020",
+    "sinner": "Spirit.s2052",
+    "champion": "Spirit.s2172",
+    "heal1": "Passive.i_passive_heal_count_up_1",
+    "heal2": "Passive.i_passive_heal_count_up_2",
+    "heal3": "Passive.i_passive_heal_count_up_3",
+})
 
-print(f"Length of data table before: {len(item_data_table)}")
 # print(f"Table before: {item_data_table}")
 
 
@@ -86,6 +93,17 @@ for i, (alias, name) in enumerate(items_to_add.items()):
     # Each item MUST replace a tips content not the tip itself
     replacable_tip_code = item_data_table[tip_indexes[i]].code
     replacable_tip = tip_indexes[i]
+
+    # Special case
+    if name == "ults":
+        override_item_data = ELItemData(
+            classification=IC.filler,
+            name=name,
+            code=replacable_tip_code
+        )
+        del item_data_table[replacable_tip]
+        item_data_table.update({name: override_item_data})
+        continue
 
     override_item_data = ELItemData(
         classification=IC.progression,

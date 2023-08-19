@@ -126,6 +126,8 @@ class ELWorld(World):
             locations = {}
             region: Region = self.multiworld.get_region(region_name, self.player)
             for location_name, location_data in location_data_table.items():
+                if location_data_table[location_name].address is None:
+                    continue
                 if location_data.region == region.name:
                     locations.update({location_name: location_data.address})
 
@@ -144,7 +146,7 @@ class ELWorld(World):
         # self.multiworld.get_location("Abyss_01_GAMEPLAY.BP_SCR_LV2M_2171_2", self.player)
 
     def set_rules(self) -> None:
-        # set_rules(self)
+        set_rules(self)
         pass
 
     def get_filler_item_name(self) -> str:

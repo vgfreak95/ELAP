@@ -36,7 +36,7 @@ for i, (name, info) in enumerate(nodes_table.items()):
     current_region = str.join("", node_pattern.search(name).group().split("_"))
 
     if "WorldTravel" in name:
-        location_data = ELLocationData(region=current_region, address=None, rules=rules, content=content)
+        location_data = ELLocationData(region=current_region, rules=rules)
         map_code = map_location_to_alias[info.get('content')]
         location_data_table.update({map_code: location_data})
         continue
@@ -54,6 +54,8 @@ for i, (name, info) in enumerate(nodes_table.items()):
 location_table: Dict[str, int] = {
     name: data.address for name, data in location_data_table.items() if data.address is not None
 }
+
+print(f"Location table: {location_table}")
 
 # print("Length of the location data table: ", len(location_data_table))
 # for k, v in location_table.items():
